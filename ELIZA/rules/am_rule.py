@@ -1,4 +1,4 @@
-from Rule import Rule
+from rules.rule import Rule
 import re
 from random import randrange
 

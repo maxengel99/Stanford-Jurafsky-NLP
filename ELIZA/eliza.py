@@ -1,5 +1,6 @@
-from RememberRule import RememberRule
-from AmRule import AmRule
+
+from rules.am_rule import AmRule
+from rules.remember_rule import RememberRule
 
 class Eliza:
 

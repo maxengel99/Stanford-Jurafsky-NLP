@@ -1,4 +1,5 @@
 class Rule:
+
     def can_apply(self, string):
         return False
         

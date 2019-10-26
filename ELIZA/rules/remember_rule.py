@@ -1,7 +1,8 @@
-from Rule import Rule
+from rules.rule import Rule
 import re
 
 class RememberRule(Rule):
+
     def can_apply(self, string):
         result = re.match(r'.*\sremember\s(.*)', string)
         if(result):
