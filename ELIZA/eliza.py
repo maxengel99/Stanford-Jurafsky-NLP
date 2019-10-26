@@ -1,4 +1,5 @@
 
+from rules.question_rule import QuestionRule
 from rules.am_rule import AmRule
 from rules.remember_rule import RememberRule
 from rules.no_rule import NoRule
@@ -10,7 +11,7 @@ from rules.general_rule import GeneralRule
 class Eliza:
 
     def __init__(self):
-        self.rules = [RememberRule(), AmRule(), NoRule(), YesRule(), AreRule(), HiRule()]
+        self.rules = [QuestionRule(), RememberRule(), AmRule(), NoRule(), YesRule(), AreRule(), HiRule()]
         self.general_response = GeneralRule()
     
     def hold_conversation(self):
