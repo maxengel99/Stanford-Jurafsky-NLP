@@ -1,16 +1,22 @@
+from RememberRule import RememberRule
+from AmRule import AmRule
+
 class Eliza:
 
     def __init__(self):
-        self.temp = 2
+        self.rules = [RememberRule(), AmRule()]
     
-    def hold_conversation():
-        input_string = input("Hi, how are you?\n")
+    def hold_conversation(self):
+        user_input = input("Hi, how are you?\n")
         while True:
-            print(input_string)
-            input_string = input()
+            response = self.get_response(user_input)
+            user_input = input('{response}\n'.format(response=response))
     
-    def get_response(user_input):
-        print("test")
+    def get_response(self, user_input):
+        for rule in self.rules:
+            check_rule = rule.can_apply(user_input)
+            if(check_rule):
+                return rule.apply(user_input)
 
 if __name__ == '__main__':
-    Eliza.hold_conversation()
+    Eliza().hold_conversation()
