@@ -6,5 +6,5 @@ possible_responses = ['Tell me more', 'That is interesting', 'I understand']
 
 class GeneralRule(Rule):
 
-    def apply(self):
+    def apply(self, input_string=''):
         return possible_responses[randrange(len(possible_responses))]

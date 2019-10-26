@@ -4,12 +4,13 @@ from rules.remember_rule import RememberRule
 from rules.no_rule import NoRule
 from rules.yes_rule import YesRule
 from rules.are_rule import AreRule
+from rules.hi_rule import HiRule
 from rules.general_rule import GeneralRule
 
 class Eliza:
 
     def __init__(self):
-        self.rules = [RememberRule(), AmRule(), NoRule(), YesRule(), AreRule()]
+        self.rules = [RememberRule(), AmRule(), NoRule(), YesRule(), AreRule(), HiRule()]
         self.general_response = GeneralRule()
     
     def hold_conversation(self):
