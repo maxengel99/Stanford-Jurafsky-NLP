@@ -16,4 +16,4 @@ class AmRule(Rule):
     
     def apply(self, string):
         subject = re.search(r'.*\sam\s(.*)', string).group(1)
-        return '{question} {subject}?'.format(question=possible_questions[(randrange(len(possible_questions) - 1))], subject=subject)
+        return '{question} {subject}?'.format(question=possible_questions[(randrange(len(possible_questions)))], subject=subject)

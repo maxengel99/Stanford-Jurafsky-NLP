@@ -1,11 +1,12 @@
 
 from rules.am_rule import AmRule
 from rules.remember_rule import RememberRule
+from rules.no_rule import NoRule
 
 class Eliza:
 
     def __init__(self):
-        self.rules = [RememberRule(), AmRule()]
+        self.rules = [RememberRule(), AmRule(), NoRule()]
     
     def hold_conversation(self):
         user_input = input("Hi, how are you?\n")
