@@ -1,5 +1,11 @@
 import sys
 
+class AlignmentPoint:
+    def __init__(self, original_letter, transformed_letter, alignment):
+        self.original_letter = original_letter
+        self.transformed_letter = transformed_letter
+        self.alignment = alignment
+
 def calculate_distance(original_word, transformed_word):
     # base case 1 - both strings blank
     if(len(original_word) == 0 and len(transformed_word) == 0):
@@ -35,4 +41,25 @@ def calculate_distance(original_word, transformed_word):
 original_word = sys.argv[1]
 transformed_word = sys.argv[2]
 
-print(calculate_distance(original_word, transformed_word))
+cost_and_alignment_info = list(calculate_distance(original_word, transformed_word))
+alignment_list = []
+
+original_word_index = 0
+transformed_word_index = 0
+
+for alignment in cost_and_alignment_info[1]:
+    if(alignment == 'n' or alignment == 'r'):
+        alignment_list.append(AlignmentPoint(original_word[original_word_index], transformed_word[transformed_word_index], alignment))
+        original_word_index += 1
+        transformed_word_index += 1
+    elif(alignment == 'd'):
+        alignment_list.append(AlignmentPoint(original_word[original_word_index], '*', alignment))
+        original_word_index += 1
+    else:
+        alignment_list.append(AlignmentPoint('*', transformed_word[transformed_word_index], alignment))
+        transformed_word_index += 1
+
+for item in alignment_list:
+    print("Original letter - ", item.original_letter)
+    print("Transformed letter - ", item.transformed_letter)
+    print("Alignment - " + item.alignment)
