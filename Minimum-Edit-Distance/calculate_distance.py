@@ -18,8 +18,19 @@ def calculate_distance(original_word, transformed_word):
         return calculate_distance(original_word[:-1], transformed_word[:-1])
 
     # min between insertion and deletion
-    return min(1 + calculate_distance(original_word[:-1], transformed_word),
-               1 + calculate_distance(original_word, transformed_word[:-1]))
+    insertion_info = 1 + calculate_distance(original_word[:-1], transformed_word)
+    deletion_info = 1 + calculate_distance(original_word, transformed_word[:-1])
+
+    tmp_original_word = original_word
+    tmp_original_word = tmp_original_word[:-1] + transformed_word[-1]
+    replacement_info = 1 + calculate_distance(tmp_original_word[:-1], transformed_word[:-1])
+
+    if(replacement_info <= insertion_info and replacement_info <= deletion_info):
+        return replacement_info
+    elif(insertion_info <= deletion_info):
+        return insertion_info
+    else:
+        return deletion_info
 
 original_word = sys.argv[1]
 transformed_word = sys.argv[2]
