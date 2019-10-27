@@ -14,12 +14,12 @@ def calculate_distance(original_word, transformed_word):
         return len(original_word)
 
     # same last character - cut off last letter
-    if(original_word[len(original_word) - 1] == transformed_word[len(transformed_word) - 1]):
-        return calculate_distance(original_word[:len(original_word) - 1], transformed_word[:len(transformed_word) - 1])
+    if(original_word[-1] == transformed_word[-1]):
+        return calculate_distance(original_word[:-1], transformed_word[:-1])
 
     # min between insertion and deletion
-    return min(1 + calculate_distance(original_word[:len(original_word) - 1], transformed_word),
-               1 + calculate_distance(original_word, transformed_word[:len(transformed_word) - 1]))
+    return min(1 + calculate_distance(original_word[:-1], transformed_word),
+               1 + calculate_distance(original_word, transformed_word[:-1]))
 
 original_word = sys.argv[1]
 transformed_word = sys.argv[2]
