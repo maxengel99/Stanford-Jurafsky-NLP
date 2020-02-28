@@ -19,8 +19,11 @@ class DataHandler():
         return movie_training_df
 
     @staticmethod
-    def shuffle_data():
-        return
+    def create_train_validation_sets(movie_df):
+        movie_train = movie_df.sample(frac=0.8, random_state = 200)
+        movie_validation = movie_df.drop(movie_train.index)
+
+        return movie_train, movie_validation
     
     
     @staticmethod
@@ -41,7 +44,7 @@ class DataHandler():
         count_prob_object["neg_prob"] = sentiment_count["N"]/len(movie_training_df)
         count_prob_object["pos_prob"] = sentiment_count["P"]/len(movie_training_df)
 
-        for index, row in movie_training_df.iterrows():
+        for _, row in movie_training_df.iterrows():
             parsed_words = row["Phrase"].split(" ")
             for word in parsed_words:
                 count_prob_object["unique_words"].add(word)
@@ -71,28 +74,8 @@ class DataHandler():
         print(count_prob_object["word_neg_prob"]["amazing"])
         print(count_prob_object["word_pos_prob"]["amazing"])
 
-'''
-        sentence_list = movie_training_df["Phrase"].str.split(" ")
-
-        for sentence in sentence_list:
-            for phrase in sentence:
-                count_prob_object["unique_words"].add(phrase)
-                
-        return
-'''
-'''
-        phrase_list = movie_training_df["Phrase"].to_list()
-        for phrase in phrase_list:
-            print(phrase)
-            for word in phrase.split(" "):
-                if not word in count_prob_object["unique_words"]:
-                    count_prob_object["unique_words"].append(word)
-        
-        print(count_prob_object["unique_words"])
-
-'''
-        
-
 dh = DataHandler()  
 movie_df = dh.read_and_clean_data()
-dh.get_counts(movie_df)
+training_set, validation_set = dh.create_train_validation_sets(movie_df)
+print(len(training_set))
+print(len(validation_set))
