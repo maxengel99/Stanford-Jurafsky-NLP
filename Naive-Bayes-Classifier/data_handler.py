@@ -69,13 +69,6 @@ class DataHandler():
             count_prob_object["word_pos_prob"][word] = (count_prob_object["word_pos_count"].get(word, 0) + 1) \
                                                         / (count_prob_object["word_pos_count"].get(word, 0) + \
                                                             count_prob_object["word_neg_count"].get(word, 0) + \
-                                                            len(count_prob_object["unique_words"]))                                         
+                                                            len(count_prob_object["unique_words"]))
 
-        print(count_prob_object["word_neg_prob"]["amazing"])
-        print(count_prob_object["word_pos_prob"]["amazing"])
-
-dh = DataHandler()  
-movie_df = dh.read_and_clean_data()
-training_set, validation_set = dh.create_train_validation_sets(movie_df)
-print(len(training_set))
-print(len(validation_set))
+        return count_prob_object
