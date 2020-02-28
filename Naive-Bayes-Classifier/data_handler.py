@@ -14,6 +14,14 @@ class DataHandler():
         movie_training_df["Phrase"] = movie_training_df["Phrase"].str.lower()
         movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace(",    ", "")
         movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace("  ", " ")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace(" \'s", "'s'")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace(".", "")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace("`", "")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace("!", "")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace("-", "")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace("'re", " are")
+        movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace(":", " ")
+
         movie_training_df.reset_index(drop=True, inplace=True)
 
         return movie_training_df

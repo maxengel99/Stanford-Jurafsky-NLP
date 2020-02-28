@@ -15,5 +15,7 @@ for _, row in validation_set.iterrows():
 
     if row["Sentiment"] == pred:
         correct += 1
+    else:
+        print(row["Phrase"])
 
 print(correct/len(validation_set))

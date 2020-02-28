@@ -6,14 +6,12 @@ class NaiveBayes():
         
         if sentiment == "N":
             if word not in movie_data_info["word_neg_prob"]:
-                print("test 1")
                 return 1 / movie_data_info["word_neg_count"].get(word, 0) + \
                             movie_data_info["word_pos_count"].get(word, 0) + \
                             len(movie_data_info["unique_words"])
             return movie_data_info["word_neg_prob"][word]
         else:
             if word not in movie_data_info["word_pos_prob"]:
-                print("test 3")
                 return 1 / movie_data_info["word_pos_count"].get(word, 0) + \
                             movie_data_info["word_pos_count"].get(word, 0) + \
                             len(movie_data_info["unique_words"])
