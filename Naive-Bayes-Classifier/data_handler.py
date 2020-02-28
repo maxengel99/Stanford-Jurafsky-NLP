@@ -16,7 +16,6 @@ class DataHandler():
         movie_training_df["Phrase"] = movie_training_df["Phrase"].str.replace("  ", " ")
         movie_training_df.reset_index(drop=True, inplace=True)
 
-        print(movie_training_df.head(50))
         return movie_training_df
 
     @staticmethod
@@ -32,14 +31,47 @@ class DataHandler():
             "neg_prob": 0,
             "pos_prob": 0,
             "unique_words": set(),
-            "word_neg_counts": {},
-            "word_pos_counts": {}
+            "word_neg_count": {},
+            "word_pos_count": {},
+            "word_neg_prob": {},
+            "word_pos_prob": {}
         }
 
         sentiment_count = movie_training_df.groupby("Sentiment").size()
         count_prob_object["neg_prob"] = sentiment_count["N"]/len(movie_training_df)
         count_prob_object["pos_prob"] = sentiment_count["P"]/len(movie_training_df)
 
+        for index, row in movie_training_df.iterrows():
+            parsed_words = row["Phrase"].split(" ")
+            for word in parsed_words:
+                count_prob_object["unique_words"].add(word)
+
+                if row["Sentiment"] == "N":
+                    if word not in count_prob_object["word_neg_count"]:
+                        count_prob_object["word_neg_count"][word] = 1
+                    else:
+                        count_prob_object["word_neg_count"][word] += 1
+                else:
+                    if word not in count_prob_object["word_pos_count"]:
+                        count_prob_object["word_pos_count"][word] = 1
+                    else:
+                        count_prob_object["word_pos_count"][word] += 1
+
+        
+        for word in count_prob_object["unique_words"]:
+            count_prob_object["word_neg_prob"][word] = (count_prob_object["word_neg_count"].get(word, 0) + 1) \
+                                                        / (count_prob_object["word_neg_count"].get(word, 0) + \
+                                                            count_prob_object["word_pos_count"].get(word, 0) + \
+                                                            len(count_prob_object["unique_words"]))
+            count_prob_object["word_pos_prob"][word] = (count_prob_object["word_pos_count"].get(word, 0) + 1) \
+                                                        / (count_prob_object["word_pos_count"].get(word, 0) + \
+                                                            count_prob_object["word_neg_count"].get(word, 0) + \
+                                                            len(count_prob_object["unique_words"]))                                         
+
+        print(count_prob_object["word_neg_prob"]["amazing"])
+        print(count_prob_object["word_pos_prob"]["amazing"])
+
+'''
         sentence_list = movie_training_df["Phrase"].str.split(" ")
 
         for sentence in sentence_list:
@@ -47,7 +79,7 @@ class DataHandler():
                 count_prob_object["unique_words"].add(phrase)
                 
         return
-
+'''
 '''
         phrase_list = movie_training_df["Phrase"].to_list()
         for phrase in phrase_list:
